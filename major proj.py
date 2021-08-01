@@ -162,6 +162,8 @@ def clear_entry3(quote_entry):
 
 # time.sleep(1000)
 
+# online test
+
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
                       font=('Helvetica', 16, 'bold'), height=5, width=10, command=lambda: login(start_button))
 start_button.place(relx=0.5, rely=0.5, anchor=CENTER)
