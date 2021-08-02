@@ -162,7 +162,7 @@ def clear_entry3(quote_entry):
 
 # time.sleep(1000)
 
-# online test two
+# online test three, trying to commit and all that
 
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
                       font=('Helvetica', 16, 'bold'), height=5, width=10, command=lambda: login(start_button))
