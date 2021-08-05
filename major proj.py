@@ -109,39 +109,34 @@ def LevelOne(selection_text, level_one):
     source_entry.bind("<Button-1>", lambda event: clear_entry2(source_entry))
     source_entry.pack()
 
-    start_levelOne = Button(root, text="Begin", command=lambda: LevelOne2(source_entry, quote_entry,
-                                                                          title_text, author_entry,
-                                                                          start_levelOne.destroy()))
+    start_levelOne = Button(root, text="Begin", command=lambda: LevelOne2(quote_entry, author_entry,
+                                                                          source_entry, title_text.destroy(),
+                                                                          start_levelOne.destroy(),
+                                                                          instruction_text.destroy()))
     start_levelOne.pack(padx=5, pady=5)
 
 
-def LevelOne2(quote_entry, author_entry, source_entry, start_levelOne, title_text):
-    # start_levelOne.destroy()
-    # title_text.forget()
-
-    print(source_entry)
-    print(author_entry)
-    print(quote_entry)
-
+def LevelOne2(quote_entry, author_entry, source_entry, title_test, start_levelOne, instruction_text):
     quote_answer = quote_entry.get()
     author_answer = author_entry.get()
-    # source_answer = source_entry.get()
+    source_answer = source_entry.get()
+
 
     # quote_entry.pack_forget()
     # author_entry.pack_forget()
     # source_entry.pack_forget()
 
-    test_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="black", fg="red",
-                      text=quote_answer)
-    test_text.pack()
-
-    test_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="black", fg="red",
-                       text=author_answer)
+    test_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue",
+                       fg="black", text=quote_answer)
     test_text1.pack()
 
-    test_text2 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="black", fg="red",
-                       text=source_entry)
+    test_text2 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
+                       text=author_answer)
     test_text2.pack()
+
+    test_text3 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
+                       text=source_answer)
+    test_text3.pack()
     attempt = 1
 
     if attempt == 1:
