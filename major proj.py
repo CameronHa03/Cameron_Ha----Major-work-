@@ -55,21 +55,25 @@ def signIn(begin_button, requested_username, requested_password, username_text, 
 
 
 def checkUser(checkUsername, checkPassword):
-    for line in open("scratch.txt"):
-        loginInfo = line.split()
-        failLoginText = Label(root, text="Looks like you'll have to try again")
-        failLoginText.pack_forget()
-        if checkUsername == loginInfo[0] and checkPassword == loginInfo[1]:
-            # testLabel = Label(root, text="Username: " + checkUsername + " Password: " + checkPassword)
-            # testLabel.pack()
-            failLoginText.pack_forget()
-            return True
-
-        else:
+    result = 0
+    with open("scratch.txt") as f:
+        for line in f:
+            user, _, password = line.strip().partition(";")
+            loginInfo = line.split(";")
+            result = ((user == checkUsername) + (password == checkPassword)) or result
             failLoginText = Label(root, text="Looks like you'll have to try again")
-            failLoginText.pack()
+            failLoginText.pack_forget()
+            if result == 2:
+                # testLabel = Label(root, text="Username: " + checkUsername + " Password: " + checkPassword)
+                # testLabel.pack()
+                failLoginText.pack_forget()
+                return True
 
-            return False
+            else:
+                failLoginText = Label(root, text="Looks like you'll have to try again")
+                failLoginText.pack()
+
+                return False
 
 
 def gameSelection():
@@ -86,11 +90,11 @@ def LevelOne(selection_text, level_one):
     selection_text.pack_forget()
     level_one.pack_forget()
 
-    title_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="black", fg="red",
+    title_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="black", fg="red",
                        text="LEVEL ONE")
     title_text.pack()
 
-    instruction_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="black", fg="red",
+    instruction_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="black", fg="red",
                              text="Enter in the fields")
     instruction_text.pack()
 
@@ -156,7 +160,6 @@ def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOn
         if answer1 == quote_answer & answer2 == author_answer:
             correct1 = True
             correct2 = True
-
 
 
     elif finished == 1:
