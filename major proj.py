@@ -116,31 +116,56 @@ def LevelOne(selection_text, level_one):
     start_levelOne.pack(padx=5, pady=5)
 
 
-def LevelOne2(quote_entry, author_entry, source_entry, title_test, start_levelOne, instruction_text):
+def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOne, instruction_text):
     quote_answer = quote_entry.get()
     author_answer = author_entry.get()
     source_answer = source_entry.get()
 
+    quote_entry.pack_forget()
+    author_entry.pack_forget()
+    source_entry.pack_forget()
 
-    # quote_entry.pack_forget()
-    # author_entry.pack_forget()
-    # source_entry.pack_forget()
+    finished = 0
 
-    test_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue",
-                       fg="black", text=quote_answer)
-    test_text1.pack()
+    correct1 = False
+    correct2 = False
 
-    test_text2 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
-                       text=author_answer)
-    test_text2.pack()
+    if finished == 0:
+        display_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="black", fg="red",
+                              text=source_answer)
+        display_text1.pack()
 
-    test_text3 = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
-                       text=source_answer)
-    test_text3.pack()
-    attempt = 1
+        question_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="black", fg="red",
+                              text="What is the quote associated with this source")
+        question_text.pack()
 
-    if attempt == 1:
+        answer1 = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
+        answer1.insert(0, "Enter quote")
+        answer1.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
+        answer1.pack()
+
+        question_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="black", fg="red",
+                               text='Who is the author associated with this source')
+        question_text1.pack()
+
+        answer2 = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
+        answer2.insert(0, "Enter author")
+        answer2.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
+        answer2.pack()
+
+        if answer1 == quote_answer & answer2 == author_answer:
+            correct1 = True
+            correct2 = True
+
+
+
+    elif finished == 1:
         return True
+
+    else:
+        return True
+
+
 
 
 def clear_entry1(author_entry):
@@ -157,7 +182,6 @@ def clear_entry3(quote_entry):
 
 # time.sleep(1000)
 
-# test for miss
 
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
                       font=('Helvetica', 16, 'bold'), height=5, width=10, command=lambda: login(start_button))
