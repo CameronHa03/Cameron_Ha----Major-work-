@@ -180,7 +180,7 @@ def clear_entry3(quote_entry):
     quote_entry.delete(0, END)
 
 
-# time.sleep(1000)
+# use for later time.sleep(1000)
 
 
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
