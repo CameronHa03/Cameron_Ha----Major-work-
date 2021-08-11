@@ -77,7 +77,7 @@ def checkUser(checkUsername, checkPassword):
 
 
 def gameSelection():
-    selection_text = Label(root, width=30, borderwidth=5, bg="black", fg="lime green",
+    selection_text = Label(root, width=30, borderwidth=5, bg="light sky blue", fg="black",
                            text="What level do you wish to complete?")
     selection_text.pack()
     level_one = Button(root, text="Level One", command=lambda: LevelOne(selection_text, level_one))
@@ -90,12 +90,12 @@ def LevelOne(selection_text, level_one):
     selection_text.pack_forget()
     level_one.pack_forget()
 
-    title_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="black", fg="red",
+    title_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
                        text="LEVEL ONE")
     title_text.pack()
 
-    instruction_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="black", fg="red",
-                             text="Enter in the fields")
+    instruction_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
+                             fg="black", text="Enter in the fields")
     instruction_text.pack()
 
     quote_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
@@ -135,32 +135,52 @@ def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOn
     correct2 = False
 
     if finished == 0:
-        display_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="black", fg="red",
-                              text=source_answer)
+        display_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
+                              fg="black", text=source_answer)
         display_text1.pack()
 
-        question_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="black", fg="red",
-                              text="What is the quote associated with this source")
+        question_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 12, 'bold'), bg="light sky blue",
+                              fg="black", text="What is the quote associated with this source")
         question_text.pack()
 
-        answer1 = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
+        answer1 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
         answer1.insert(0, "Enter quote")
         answer1.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
         answer1.pack()
 
-        question_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="black", fg="red",
-                               text='Who is the author associated with this source')
+        question_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 12, 'bold'), bg="light sky blue",
+                               fg="black", text='Who is the author associated with this source')
         question_text1.pack()
 
-        answer2 = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
+        answer2 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
         answer2.insert(0, "Enter author")
         answer2.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
         answer2.pack()
 
-        if answer1 == quote_answer & answer2 == author_answer:
+        # fix this submission_button = Button(root, text="Begin", command=lambda: LevelOne2(quote_entry, author_entry,
+                                                                          source_entry, title_text.destroy(),
+                                                                          start_levelOne.destroy(),
+                                                                          instruction_text.destroy()))
+        # apart of that ^ submission_button.pack(padx=5, pady=5)
+
+        if quote_answer == answer1.get():
             correct1 = True
+        if author_answer == answer2.get():
             correct2 = True
 
+        if correct1 & correct2 == True:
+            # both are correct
+            display_text1.destroy()
+            question_text.destroy()
+            answer1.destroy()
+            question_text1.destroy()
+            answer2.destroy()
+
+            win_screen = Label(root, width=30, borderwidth=5, font=('Helvetica', 14, 'bold'), bg="light sky blue",
+                               fg="black", text='Who is the author associated with this source')
+            win_screen.pack()
+
+            finished = 1
 
     elif finished == 1:
         return True
