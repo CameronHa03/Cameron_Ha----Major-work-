@@ -139,55 +139,95 @@ def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOn
                               fg="black", text=source_answer)
         display_text1.pack()
 
-        question_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 12, 'bold'), bg="light sky blue",
+        question_text = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
                               fg="black", text="What is the quote associated with this source")
         question_text.pack()
 
         answer1 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
         answer1.insert(0, "Enter quote")
-        answer1.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
+        answer1.bind("<Button-1>", lambda event: clear_entry4(answer1))
         answer1.pack()
 
-        question_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 12, 'bold'), bg="light sky blue",
+        question_text1 = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
                                fg="black", text='Who is the author associated with this source')
         question_text1.pack()
 
         answer2 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
         answer2.insert(0, "Enter author")
-        answer2.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
+        answer2.bind("<Button-1>", lambda event: clear_entry5(answer2))
         answer2.pack()
 
-        # fix this submission_button = Button(root, text="Begin", command=lambda: LevelOne2(quote_entry, author_entry,
-                                                                          source_entry, title_text.destroy(),
-                                                                          start_levelOne.destroy(),
-                                                                          instruction_text.destroy()))
-        # apart of that ^ submission_button.pack(padx=5, pady=5)
+        submission_button = Button(root, text="Submit", command=lambda: submit1(answer1, answer2, quote_answer,
+                                                                                author_answer, source_answer,
+                                                                                finished,
+                                                                                display_text1.destroy(),
+                                                                                question_text.destroy(),
+                                                                                question_text1.destroy(),
+                                                                                submission_button.destroy()))
+        submission_button.pack(padx=5, pady=5)
+    else:
+        finished = 2
 
-        if quote_answer == answer1.get():
-            correct1 = True
-        if author_answer == answer2.get():
-            correct2 = True
 
-        if correct1 & correct2 == True:
-            # both are correct
-            display_text1.destroy()
-            question_text.destroy()
-            answer1.destroy()
-            question_text1.destroy()
-            answer2.destroy()
+def levelOne3(quote_answer, source_answer, author_answer, win_screen, con_button):
 
-            win_screen = Label(root, width=30, borderwidth=5, font=('Helvetica', 14, 'bold'), bg="light sky blue",
-                               fg="black", text='Who is the author associated with this source')
-            win_screen.pack()
+    clear_label1(win_screen, con_button),
 
-            finished = 1
+    display_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
+                          fg="black", text=author_answer)
+    display_text1.pack()
 
-    elif finished == 1:
-        return True
+    question_text = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
+                          fg="black", text="What is the quote associated with this author")
+    question_text.pack()
+
+    answer1 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
+    answer1.insert(0, "Enter quote")
+    answer1.bind("<Button-1>", lambda event: clear_entry4(answer1))
+    answer1.pack()
+
+    question_text1 = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
+                           fg="black", text='Which source is associated with this author')
+    question_text1.pack()
+
+    answer2 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
+    answer2.insert(0, "Enter source")
+    answer2.bind("<Button-1>", lambda event: clear_entry5(answer2))
+    answer2.pack()
+
+
+def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finished, display_text1, question_text,
+            question_text1, submission_button):
+    answer_1 = answer1.get()
+    answer_2 = answer2.get()
+
+    answer1.destroy()
+    answer2.destroy()
+
+    correct1 = False
+    correct2 = False
+
+    if quote_answer == answer_1:
+        correct1 = True
+    if author_answer == answer_2:
+        correct2 = True
+
+    if correct1 & correct2 == True:
+        # both are correct
+
+        win_screen = Label(root, width=30, borderwidth=5, font=('Helvetica', 14, 'bold'), bg="light sky blue",
+                           fg="black", text="WELL DONE")
+        win_screen.pack()
+
+        con_button = Button(root, text="Continue", command=lambda:levelOne3(quote_answer, source_answer, author_answer,
+                                                                            win_screen, con_button))
+        con_button.pack(padx=5, pady=5)
+
+        finished = 1
 
     else:
-        return True
 
+        return finished
 
 
 
@@ -201,6 +241,20 @@ def clear_entry2(source_entry):
 
 def clear_entry3(quote_entry):
     quote_entry.delete(0, END)
+
+
+def clear_entry4(answer1):
+    answer1.delete(0, END)
+
+
+def clear_entry5(answer2):
+    answer2.delete(0, END)
+
+
+def clear_label1(win_screen, con_button):
+    # remove text
+    con_button.destroy()
+    win_screen.destroy()
 
 
 # use for later time.sleep(1000)
