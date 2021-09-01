@@ -228,6 +228,42 @@ def levelOne4(quote_answer, author_answer, source_answer, con_button, correct_di
                          fg="black", text="Complete each of the following to finish level one!")
     display_text.pack()
 
+    question_text1 = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
+                          fg="black", text="What is the quote that you were aiming to learn?")
+    question_text1.pack()
+
+    answer1 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
+    answer1.insert(0, "Enter quote")
+    answer1.bind("<Button-1>", lambda event: clear_entry4(answer1))
+    answer1.pack()
+
+    question_text2 = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
+                           fg="black", text="Which author wrote this quote")
+    question_text2.pack()
+
+    answer2 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
+    answer2.insert(0, "Enter source")
+    answer2.bind("<Button-1>", lambda event: clear_entry5(answer2))
+    answer2.pack()
+
+    question_text3 = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
+                           fg="black", text="Which author wrote this quote")
+    question_text3.pack()
+
+    answer3 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
+    answer3.insert(0, "Enter source")
+    answer3.bind("<Button-1>", lambda event: clear_entry6(answer3))
+    answer3.pack()
+
+    # on the click it begins the checking of the answers
+    submission_button3 = Button(root, text="Submit", command=lambda: submit3(answer1, answer2, answer3,
+                                                                             quote_answer, author_answer, source_answer,
+                                                                             display_text.destroy(),
+                                                                             question_text1.destroy(),
+                                                                             question_text2.destroy(),
+                                                                             question_text3.destroy()))
+    submission_button3.pack(padx=5, pady=5)
+
 
 def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finished, display_text1, question_text,
             question_text1, submission_button):
@@ -311,6 +347,51 @@ def submit2(answer1, answer2, quote_answer, author_answer, source_answer, displa
         restart_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
 
+def submit3(answer1, answer2, answer3, quote_answer, author_answer, source_answer, display_text, question_text1,
+            question_text2, question_text3):
+
+    answer_1 = answer1.get()
+    answer_2 = answer2.get()
+    answer_3 = answer3.get()
+
+    answer1.destroy()
+    answer2.destroy()
+    answer3.destroy()
+
+    correct1 = False
+    correct2 = False
+    correct3 = False
+
+    # binary selection which checks each answer and response
+    if answer_1 == quote_answer:
+        correct1 = True
+    else:
+        correct1 = False
+    if answer_2 == author_answer:
+        correct2 = True
+    else:
+        correct2 = False
+    if answer_3 == source_answer:
+        correct3 = True
+    else:
+        correct3 = False
+
+    # displays which are dependent on what was correct or not
+    if correct1 & correct2 & correct3 == True:
+        # all three are correct
+        correct_display = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
+                                fg="black", text="Congratulations you got both correct!")
+        correct_display.pack()
+    else:
+        restart_button = Button(root, text="Restart", borderwidth=0, highlightthickness=0, bd=0,
+                                font=('Helvetica', 16, 'bold'), height=5, width=10,
+                                command=lambda: gameSelection(restart_button.destroy()))
+        restart_button.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+
+
+
+
 def empty_textbox(incorrect_display):
     incorrect_display.destroy()
 
@@ -333,6 +414,10 @@ def clear_entry4(answer1):
 
 def clear_entry5(answer2):
     answer2.delete(0, END)
+
+
+def clear_entry6(answer3):
+    answer3.delete(0, END)
 
 
 def clear_label1(win_screen, con_button):
