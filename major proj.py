@@ -222,6 +222,13 @@ def levelOne3(quote_answer, source_answer, author_answer, win_screen, con_button
     submission_button2.pack(padx=5, pady=5)
 
 
+def levelOne4(quote_answer, author_answer, source_answer, con_button, correct_display):
+
+    display_text = Label(root, width=40, borderwidth=10, font=('Helvetica', 20, 'bold'), bg="light sky blue",
+                         fg="black", text="Complete each of the following to finish level one!")
+    display_text.pack()
+
+
 def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finished, display_text1, question_text,
             question_text1, submission_button):
     # checks the answers
@@ -292,9 +299,12 @@ def submit2(answer1, answer2, quote_answer, author_answer, source_answer, displa
 
         # allows user to continue
 
-        # put button here
+        con_button = Button(root, text="Continue", command=lambda: levelOne4(quote_answer, author_answer, source_answer,
+                                                                             con_button.destroy(),
+                                                                             correct_display.destroy()))
+        con_button.pack()
     else:
-        # mistakes were made
+        # mistakes were made causing user to restart
         restart_button = Button(root, text="Restart", borderwidth=0, highlightthickness=0, bd=0,
                                 font=('Helvetica', 16, 'bold'), height=5, width=10,
                                 command=lambda: gameSelection(restart_button.destroy()))
