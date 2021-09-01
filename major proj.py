@@ -10,11 +10,14 @@ bg = PhotoImage(file="background_major.png")
 background = Label(root, image=bg)
 background.place(x=0, y=0, relwidth=1, relheight=1)
 
+# this sets the background and size for the entire program
+
 
 # root.attributes("-alpha", 0.5)
 
 
 def login(start_button):
+    # login function which allows the user to type username and password
     start_button.destroy()
 
     username_text = Label(root, width=15, borderwidth=5, font=('Helvetica', 16, 'bold'),
@@ -34,9 +37,11 @@ def login(start_button):
                           command=lambda: signIn(begin_button, requested_username, requested_password, username_text,
                                                  password_text))
     begin_button.pack()
+    # on the click this button triggers a function which checks the users credentials
 
 
 def signIn(begin_button, requested_username, requested_password, username_text, password_text):
+    # takes the entries from the login function and changes them to strings to be checked
     checkUsername = requested_username.get()
     checkPassword = requested_password.get()
 
@@ -45,7 +50,9 @@ def signIn(begin_button, requested_username, requested_password, username_text, 
 
     requested_username.delete(0, END)
     requested_password.delete(0, END)
+
     if checkUser(checkUsername, checkPassword):
+        # if the returned value is true the program continues
         begin_button.pack_forget()
         requested_username.pack_forget()
         requested_password.pack_forget()
@@ -56,6 +63,7 @@ def signIn(begin_button, requested_username, requested_password, username_text, 
 
 
 def checkUser(checkUsername, checkPassword):
+    # Checks the username and password and returns a boolean value
     result = 0
     with open("scratch.txt") as f:
         for line in f:
@@ -78,10 +86,12 @@ def checkUser(checkUsername, checkPassword):
 
 
 def gameSelection(blank):
+    # Allows the user to choose which level they wish to do (currently only one)
     selection_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'),
                            bg="light sky blue", fg="black",
                            text="What level do you wish to complete?")
     selection_text.pack()
+    # this button begins level one
     level_one = Button(root, text="Level One", command=lambda: LevelOne(selection_text, level_one))
     level_one.pack()
 
@@ -115,6 +125,7 @@ def LevelOne(selection_text, level_one):
     source_entry.bind("<Button-1>", lambda event: clear_entry2(source_entry))
     source_entry.pack()
 
+    # Takes these entries and enters them into the next routine which is the  start of the questions
     start_levelOne = Button(root, text="Begin", command=lambda: LevelOne2(quote_entry, author_entry,
                                                                           source_entry, title_text.destroy(),
                                                                           start_levelOne.destroy(),
@@ -123,6 +134,8 @@ def LevelOne(selection_text, level_one):
 
 
 def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOne, instruction_text):
+    # takes the entries and converts them into strings which allows them to be checked
+
     quote_answer = quote_entry.get()
     author_answer = author_entry.get()
     source_answer = source_entry.get()
@@ -159,6 +172,7 @@ def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOn
         answer2.bind("<Button-1>", lambda event: clear_entry5(answer2))
         answer2.pack()
 
+        # on the click it begins the program that checks the answers
         submission_button = Button(root, text="Submit", command=lambda: submit1(answer1, answer2, quote_answer,
                                                                                 author_answer, source_answer,
                                                                                 finished,
@@ -175,6 +189,7 @@ def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOn
 def levelOne3(quote_answer, source_answer, author_answer, win_screen, con_button):
     clear_label1(win_screen, con_button)
 
+    # after LevelOne2 has been passed successfully then this sub-routine begins
     display_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
                           fg="black", text=author_answer)
     display_text1.pack()
@@ -197,6 +212,7 @@ def levelOne3(quote_answer, source_answer, author_answer, win_screen, con_button
     answer2.bind("<Button-1>", lambda event: clear_entry5(answer2))
     answer2.pack()
 
+    # on the click it begins the checking of the answers
     submission_button2 = Button(root, text="Submit", command=lambda: submit2(answer1, answer2, quote_answer,
                                                                              author_answer, source_answer,
                                                                              display_text1.destroy(),
@@ -208,6 +224,7 @@ def levelOne3(quote_answer, source_answer, author_answer, win_screen, con_button
 
 def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finished, display_text1, question_text,
             question_text1, submission_button):
+    # checks the answers
     answer_1 = answer1.get()
     answer_2 = answer2.get()
 
@@ -229,6 +246,7 @@ def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finish
                            fg="black", text="WELL DONE")
         win_screen.pack()
 
+        # allows user to continue to next stage
         con_button = Button(root, text="Continue", command=lambda: levelOne3(quote_answer, source_answer, author_answer,
                                                                              win_screen, con_button))
         con_button.pack(padx=5, pady=5)
@@ -242,6 +260,8 @@ def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finish
 
 def submit2(answer1, answer2, quote_answer, author_answer, source_answer, display_text1, question_text, question_text1,
             submission_button2):
+
+    # Checks the answers submitted
     correct1 = False
     correct2 = False
     answer_1 = answer1.get()
@@ -265,10 +285,16 @@ def submit2(answer1, answer2, quote_answer, author_answer, source_answer, displa
         correct2 = False
 
     if correct1 == True & correct2 == True:
+        # both are correct
         correct_display = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
                                 fg="black", text="Congratulations you got both correct!")
         correct_display.pack()
+
+        # allows user to continue
+
+        # put button here
     else:
+        # mistakes were made
         restart_button = Button(root, text="Restart", borderwidth=0, highlightthickness=0, bd=0,
                                 font=('Helvetica', 16, 'bold'), height=5, width=10,
                                 command=lambda: gameSelection(restart_button.destroy()))
@@ -300,14 +326,14 @@ def clear_entry5(answer2):
 
 
 def clear_label1(win_screen, con_button):
-    # remove text
+    # removes text
     con_button.destroy()
     win_screen.destroy()
 
 
 # use for later time.sleep(1000)
 
-
+# this button allows the user to begin playing game
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
                       font=('Helvetica', 16, 'bold'), height=5, width=10, command=lambda: login(start_button))
 start_button.place(relx=0.5, rely=0.5, anchor=CENTER)
