@@ -49,7 +49,8 @@ def signIn(begin_button, requested_username, requested_password, username_text, 
         begin_button.pack_forget()
         requested_username.pack_forget()
         requested_password.pack_forget()
-        gameSelection()
+        blank = True
+        gameSelection(blank)
     else:
         return False
 
@@ -76,8 +77,9 @@ def checkUser(checkUsername, checkPassword):
                 return False
 
 
-def gameSelection():
-    selection_text = Label(root, width=30, borderwidth=5, bg="light sky blue", fg="black",
+def gameSelection(blank):
+    selection_text = Label(root, width=30, borderwidth=5, font=('Helvetica', 18, 'bold'),
+                           bg="light sky blue", fg="black",
                            text="What level do you wish to complete?")
     selection_text.pack()
     level_one = Button(root, text="Level One", command=lambda: LevelOne(selection_text, level_one))
@@ -165,13 +167,13 @@ def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOn
                                                                                 question_text1.destroy(),
                                                                                 submission_button.destroy()))
         submission_button.pack(padx=5, pady=5)
+
     else:
         finished = 2
 
 
 def levelOne3(quote_answer, source_answer, author_answer, win_screen, con_button):
-
-    clear_label1(win_screen, con_button),
+    clear_label1(win_screen, con_button)
 
     display_text1 = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
                           fg="black", text=author_answer)
@@ -194,6 +196,14 @@ def levelOne3(quote_answer, source_answer, author_answer, win_screen, con_button
     answer2.insert(0, "Enter source")
     answer2.bind("<Button-1>", lambda event: clear_entry5(answer2))
     answer2.pack()
+
+    submission_button2 = Button(root, text="Submit", command=lambda: submit2(answer1, answer2, quote_answer,
+                                                                             author_answer, source_answer,
+                                                                             display_text1.destroy(),
+                                                                             question_text.destroy(),
+                                                                             question_text1.destroy(),
+                                                                             submission_button2.destroy()))
+    submission_button2.pack(padx=5, pady=5)
 
 
 def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finished, display_text1, question_text,
@@ -219,16 +229,54 @@ def submit1(answer1, answer2, quote_answer, author_answer, source_answer, finish
                            fg="black", text="WELL DONE")
         win_screen.pack()
 
-        con_button = Button(root, text="Continue", command=lambda:levelOne3(quote_answer, source_answer, author_answer,
-                                                                            win_screen, con_button))
+        con_button = Button(root, text="Continue", command=lambda: levelOne3(quote_answer, source_answer, author_answer,
+                                                                             win_screen, con_button))
         con_button.pack(padx=5, pady=5)
 
-        finished = 1
-
     else:
+        restart_button = Button(root, text="Restart", borderwidth=0, highlightthickness=0, bd=0,
+                                font=('Helvetica', 16, 'bold'), height=5, width=10,
+                                command=lambda: gameSelection(restart_button.destroy()))
+        restart_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
-        return finished
 
+def submit2(answer1, answer2, quote_answer, author_answer, source_answer, display_text1, question_text, question_text1,
+            submission_button2):
+    correct1 = False
+    correct2 = False
+    answer_1 = answer1.get()
+    answer_2 = answer2.get()
+
+    answer1.destroy()
+    answer2.destroy()
+
+    if answer_1 == quote_answer:
+        correct1 = True
+    elif answer_1 != quote_answer:
+        correct1 = False
+    else:
+        correct1 = False
+
+    if answer_2 == source_answer:
+        correct2 = True
+    elif answer_2 != source_answer:
+        correct2 = False
+    else:
+        correct2 = False
+
+    if correct1 == True & correct2 == True:
+        correct_display = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
+                                fg="black", text="Congratulations you got both correct!")
+        correct_display.pack()
+    else:
+        restart_button = Button(root, text="Restart", borderwidth=0, highlightthickness=0, bd=0,
+                                font=('Helvetica', 16, 'bold'), height=5, width=10,
+                                command=lambda: gameSelection(restart_button.destroy()))
+        restart_button.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+
+def empty_textbox(incorrect_display):
+    incorrect_display.destroy()
 
 
 def clear_entry1(author_entry):
