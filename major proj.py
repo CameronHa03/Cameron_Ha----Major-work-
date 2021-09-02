@@ -19,6 +19,7 @@ blank4 = False
 
 # root.attributes("-alpha", 0.5)
 
+
 def helpScreen(help_button, start_button):
 
     help_button.destroy()
@@ -48,7 +49,51 @@ def helpScreen(help_button, start_button):
     con_button.pack()
 
 
-def login(start_button, blank1, blank2, blank3, blank4):
+def driver(driver_button, start_button):
+
+    blank1 = False
+    blank2 = False
+    blank3 = False
+    blank4 = False
+    blank5 = False
+
+    print("Driver taking place")
+
+    quote = "To be or not to be"
+    author = "Shakespeare"
+    source = "Hamlet"
+
+    answer1 = "To be or not to be"
+    answer2 = "Shakespeare"
+    answer3 = "Hamlet"
+
+    if quote == answer1:
+        print("Quote check correct")
+    else:
+        print("Quote check incorrect")
+
+    if author == answer2:
+        print("Author check correct")
+    else:
+        print("Author check incorrect")
+
+    if source == answer3:
+        print("Source check correct")
+    else:
+        print("Source check incorrect")
+
+    finished = input("Finished with driver? (Yes or no): ")
+
+    if finished == "Yes":
+        blank1 = True
+    else:
+        blank1 = False
+
+    if blank1 == True:
+        login(blank1, blank2, blank3, blank4, blank5)
+
+
+def login(start_button, driver_button, blank1, blank2, blank3):
     # login function which allows the user to type username and password
 
     username_text = Label(root, width=15, borderwidth=5, font=('Helvetica', 16, 'bold'),
@@ -133,88 +178,36 @@ def LevelOne(selection_text, level_one):
     selection_text.pack_forget()
     level_one.pack_forget()
 
-    test = input("Turn driver on? ")
-    driver = False
 
-    if test == "Yes":
-        driver = True
-    elif test == "No":
-        driver = False
-    else:
-        driver = False
+    title_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
+                       text="LEVEL ONE")
+    title_text.pack()
 
-    if driver == True:
+    instruction_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
+                             fg="black", text="Enter in the fields")
+    instruction_text.pack()
 
-        title_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue",
-                           fg="black",
-                           text="LEVEL ONE")
-        title_text.pack()
+    quote_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
+    quote_entry.insert(0, "Enter quote")
+    quote_entry.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
+    quote_entry.pack()
 
-        instruction_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
-                                 fg="black", text="Enter in the fields")
-        instruction_text.pack()
+    author_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
+    author_entry.insert(0, "Author name")
+    author_entry.bind("<Button-1>", lambda event: clear_entry1(author_entry))
+    author_entry.pack()
 
-        quote_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
-        quote_entry.insert(0, "Enter quote")
-        quote_entry.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
-        quote_entry.pack()
+    source_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
+    source_entry.insert(0, "Source")
+    source_entry.bind("<Button-1>", lambda event: clear_entry2(source_entry))
+    source_entry.pack()
 
-        quote_response = quote_entry.get()
-        print(quote_response)
-
-        author_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
-        author_entry.insert(0, "Author name")
-        author_entry.bind("<Button-1>", lambda event: clear_entry1(author_entry))
-        author_entry.pack()
-
-        author_response = author_entry.get()
-        print(author_response)
-
-        source_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
-        source_entry.insert(0, "Source")
-        source_entry.bind("<Button-1>", lambda event: clear_entry2(source_entry))
-        source_entry.pack()
-
-        source_response = source_entry.get()
-        print(source_response)
-
-        # Takes these entries and enters them into the next routine which is the  start of the questions
-        start_levelOne = Button(root, text="Begin", command=lambda: LevelOne2(quote_entry, author_entry,
-                                                                              source_entry, title_text.destroy(),
-                                                                              start_levelOne.destroy(),
-                                                                              instruction_text.destroy()))
-        start_levelOne.pack(padx=5, pady=5)
-
-    else:
-        title_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
-                           text="LEVEL ONE")
-        title_text.pack()
-
-        instruction_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
-                                 fg="black", text="Enter in the fields")
-        instruction_text.pack()
-
-        quote_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
-        quote_entry.insert(0, "Enter quote")
-        quote_entry.bind("<Button-1>", lambda event: clear_entry3(quote_entry))
-        quote_entry.pack()
-
-        author_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
-        author_entry.insert(0, "Author name")
-        author_entry.bind("<Button-1>", lambda event: clear_entry1(author_entry))
-        author_entry.pack()
-
-        source_entry = Entry(root, width=15, borderwidth=5, bg="black", fg="lime green")
-        source_entry.insert(0, "Source")
-        source_entry.bind("<Button-1>", lambda event: clear_entry2(source_entry))
-        source_entry.pack()
-
-        # Takes these entries and enters them into the next routine which is the  start of the questions
-        start_levelOne = Button(root, text="Begin", command=lambda: LevelOne2(quote_entry, author_entry,
-                                                                              source_entry, title_text.destroy(),
-                                                                              start_levelOne.destroy(),
-                                                                              instruction_text.destroy()))
-        start_levelOne.pack(padx=5, pady=5)
+    # Takes these entries and enters them into the next routine which is the  start of the questions
+    start_levelOne = Button(root, text="Begin", command=lambda: LevelOne2(quote_entry, author_entry,
+                                                                          source_entry, title_text.destroy(),
+                                                                          start_levelOne.destroy(),
+                                                                          instruction_text.destroy()))
+    start_levelOne.pack(padx=5, pady=5)
 
 
 def LevelOne2(quote_entry, author_entry, source_entry, title_text, start_levelOne, instruction_text):
@@ -464,7 +457,7 @@ def submit3(answer1, answer2, answer3, quote_answer, author_answer, source_answe
     # displays which are dependent on what was correct or not
     if correct1 & correct2 & correct3 == True:
         # all three are correct
-        correct_display = Label(root, width=30, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
+        correct_display = Label(root, width=100, borderwidth=5, font=('Helvetica', 20, 'bold'), bg="light sky blue",
                                 fg="black", text="Congratulations you have completed level one!")
         correct_display.pack()
     else:
@@ -513,13 +506,20 @@ def clear_label1(win_screen, con_button):
 # this button allows the user to begin playing game
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
                       font=('Helvetica', 16, 'bold'), height=5, width=10, command=lambda: login(start_button.destroy(),
-                                                                                                blank1, blank2, blank3,
-                                                                                                blank4))
+                                                                                                driver_button.destroy(),
+                                                                                                blank1, blank2, blank3))
 start_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
 help_button = Button(root, text="help", borderwidth=0, highlightthickness=0, bd=0,
                      font=('Helvetica', 16, 'bold'), height=2, width=5, command=lambda: helpScreen(help_button,
                                                                                                    start_button))
-help_button.place(x=10, y=400)
+help_button.place(relx=0, rely=0.9, anchor=W)
+
+driver_button = Button(root, text="Driver", borderwidth=0, highlightthickness=0, bd=0,
+                       font=('Helvetica', 16, 'bold'), height=2, width=5, command=lambda: driver(
+                                                                                                  start_button.destroy(),
+                                                                                                  driver_button.destroy()
+                                                                                                   ))
+driver_button.place(relx=0, rely=0.05, anchor=W)
 
 root.mainloop()
