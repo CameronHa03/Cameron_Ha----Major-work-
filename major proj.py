@@ -12,13 +12,44 @@ background.place(x=0, y=0, relwidth=1, relheight=1)
 
 # this sets the background and size for the entire program
 
+blank1 = False
+blank2 = False
+blank3 = False
+blank4 = False
 
 # root.attributes("-alpha", 0.5)
 
+def helpScreen(help_button, start_button):
 
-def login(start_button):
-    # login function which allows the user to type username and password
+    help_button.destroy()
     start_button.destroy()
+
+    title_text = Label(root, width=20, borderwidth=5, font=('Helvetica', 18, 'bold'),
+                          bg="light sky blue", fg="black", text="This is the help screen")
+    title_text.pack()
+
+    info_text1 = Label(root, width=100, borderwidth=5, font=('Helvetica', 14, 'bold'),
+                       bg="light sky blue", fg="black", text="Remember to follow the prompts which help!")
+    info_text1.pack()
+
+    info_text2 = Label(root, width=100, borderwidth=5, font=('Helvetica', 14, 'bold'),
+                       bg="light sky blue", fg="black",
+                       text="The text books have helpful messages which show you where")
+    info_text2.pack()
+
+    info_text3 = Label(root, width=100, borderwidth=5, font=('Helvetica', 14, 'bold'),
+                       bg="light sky blue", fg="black", text="to enter the text.")
+    info_text3.pack()
+
+    con_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
+                        font=('Helvetica', 16, 'bold'),
+                        command=lambda: login(con_button.destroy(), title_text.destroy(), info_text1.destroy(),
+                                              info_text2.destroy(), info_text3.destroy()))
+    con_button.pack()
+
+
+def login(start_button, blank1, blank2, blank3, blank4):
+    # login function which allows the user to type username and password
 
     username_text = Label(root, width=15, borderwidth=5, font=('Helvetica', 16, 'bold'),
                           bg="light sky blue", fg="black", text="Enter username")
@@ -481,7 +512,14 @@ def clear_label1(win_screen, con_button):
 
 # this button allows the user to begin playing game
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
-                      font=('Helvetica', 16, 'bold'), height=5, width=10, command=lambda: login(start_button))
+                      font=('Helvetica', 16, 'bold'), height=5, width=10, command=lambda: login(start_button.destroy(),
+                                                                                                blank1, blank2, blank3,
+                                                                                                blank4))
 start_button.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+help_button = Button(root, text="help", borderwidth=0, highlightthickness=0, bd=0,
+                     font=('Helvetica', 16, 'bold'), height=2, width=5, command=lambda: helpScreen(help_button,
+                                                                                                   start_button))
+help_button.place(x=10, y=400)
 
 root.mainloop()
