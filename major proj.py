@@ -242,12 +242,12 @@ def levelOne4(quote_answer, author_answer, source_answer, con_button, correct_di
     question_text2.pack()
 
     answer2 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
-    answer2.insert(0, "Enter source")
+    answer2.insert(0, "Enter author")
     answer2.bind("<Button-1>", lambda event: clear_entry5(answer2))
     answer2.pack()
 
     question_text3 = Label(root, width=40, borderwidth=5, font=('Helvetica', 16, 'bold'), bg="light sky blue",
-                           fg="black", text="Which author wrote this quote")
+                           fg="black", text="Which source is this from")
     question_text3.pack()
 
     answer3 = Entry(root, width=30, borderwidth=5, bg="black", fg="lime green")
@@ -261,7 +261,8 @@ def levelOne4(quote_answer, author_answer, source_answer, con_button, correct_di
                                                                              display_text.destroy(),
                                                                              question_text1.destroy(),
                                                                              question_text2.destroy(),
-                                                                             question_text3.destroy()))
+                                                                             question_text3.destroy(),
+                                                                             submission_button3.destroy()))
     submission_button3.pack(padx=5, pady=5)
 
 
@@ -348,7 +349,7 @@ def submit2(answer1, answer2, quote_answer, author_answer, source_answer, displa
 
 
 def submit3(answer1, answer2, answer3, quote_answer, author_answer, source_answer, display_text, question_text1,
-            question_text2, question_text3):
+            question_text2, question_text3, submission_button3):
 
     answer_1 = answer1.get()
     answer_2 = answer2.get()
