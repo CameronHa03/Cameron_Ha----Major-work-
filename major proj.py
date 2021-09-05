@@ -5,19 +5,19 @@ root = Tk(className="Python window")
 # setting size of window
 root.geometry("750x500")
 
+# this sets the background for the entire program
 bg = PhotoImage(file="background_major.png")
+# image from https://amazing-anime.netlify.app/anime-art-desktop-background.html
 
 background = Label(root, image=bg)
 background.place(x=0, y=0, relwidth=1, relheight=1)
 
-# this sets the background and size for the entire program
+# these blank variables are used so that different functions can be re-called and repeated
 
 blank1 = False
 blank2 = False
 blank3 = False
 blank4 = False
-
-# root.attributes("-alpha", 0.5)
 
 
 def helpScreen(help_button, start_button):
@@ -91,6 +91,9 @@ def driver(driver_button, start_button):
 
     if blank1 == True:
         login(blank1, blank2, blank3, blank4, blank5)
+    else:
+        print("Did not recognise input, continuing program")
+        login(blank1, blank2, blank3, blank4, blank5)
 
 
 def login(start_button, driver_button, blank1, blank2, blank3):
@@ -129,13 +132,19 @@ def signIn(begin_button, requested_username, requested_password, username_text, 
 
     if checkUser(checkUsername, checkPassword):
         # if the returned value is true the program continues
-        begin_button.pack_forget()
+        begin_button.destroy()
         requested_username.pack_forget()
         requested_password.pack_forget()
         blank = True
         gameSelection(blank)
     else:
-        return False
+        blank1 = False
+        blank2 = False
+        blank3 = False
+        blank4 = False
+        requested_username.destroy()
+        requested_password.destroy()
+        login(begin_button.destroy(), blank1, blank2, blank3, blank4)
 
 
 def checkUser(checkUsername, checkPassword):
@@ -151,12 +160,12 @@ def checkUser(checkUsername, checkPassword):
             if result == 2:
                 # testLabel = Label(root, text="Username: " + checkUsername + " Password: " + checkPassword)
                 # testLabel.pack()
-                failLoginText.pack_forget()
+                failLoginText.destroy()
                 return True
 
             else:
                 failLoginText = Label(root, text="Looks like you'll have to try again")
-                failLoginText.pack()
+                failLoginText.pack_forget()
 
                 return False
 
@@ -177,7 +186,6 @@ def LevelOne(selection_text, level_one):
 
     selection_text.pack_forget()
     level_one.pack_forget()
-
 
     title_text = Label(root, width=50, borderwidth=5, font=('Helvetica', 18, 'bold'), bg="light sky blue", fg="black",
                        text="LEVEL ONE")
@@ -470,6 +478,7 @@ def submit3(answer1, answer2, answer3, quote_answer, author_answer, source_answe
 def empty_textbox(incorrect_display):
     incorrect_display.destroy()
 
+# these functions clear the various entries throughout the program
 
 def clear_entry1(author_entry):
     author_entry.delete(0, END)
@@ -494,6 +503,7 @@ def clear_entry5(answer2):
 def clear_entry6(answer3):
     answer3.delete(0, END)
 
+# these functions clear the label throughout the program
 
 def clear_label1(win_screen, con_button):
     # removes text
@@ -501,7 +511,9 @@ def clear_label1(win_screen, con_button):
     win_screen.destroy()
 
 
-# use for later time.sleep(1000)
+def clearLabel2(failLoginText):
+    failLoginText.destroy()
+
 
 # this button allows the user to begin playing game
 start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, bd=0,
@@ -510,7 +522,7 @@ start_button = Button(root, text="Start", borderwidth=0, highlightthickness=0, b
                                                                                                 blank1, blank2, blank3))
 start_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
-help_button = Button(root, text="help", borderwidth=0, highlightthickness=0, bd=0,
+help_button = Button(root, text="?", borderwidth=0, highlightthickness=0, bd=0,
                      font=('Helvetica', 16, 'bold'), height=2, width=5, command=lambda: helpScreen(help_button,
                                                                                                    start_button))
 help_button.place(relx=0, rely=0.9, anchor=W)
